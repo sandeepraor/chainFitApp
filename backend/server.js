@@ -16,4 +16,15 @@ app.listen(PORT, function () {
   console.log("Server connected to port ");
 });
 
+app.get("/", (req, res) => {
+  return res.send(`
+    <html>
+      <h1>Api End points</h1>
+      
+        <h2>POST : /user/register</h2>
+        <h2>POST : /user/login</h2>
+        <h2>POST : /user/auth</h2>
+    
+    </html>`);
+});
 app.use("/user", userRouter);
