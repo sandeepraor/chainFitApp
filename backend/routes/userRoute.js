@@ -2,10 +2,10 @@ const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const { query, validationResult, check } = require("express-validator");
 
+const auth = require("../middleware/auth");
 const userModel = require("../schema/userSchema");
 const bcrypt = require("bcrypt");
-const { default: mongoose } = require("mongoose");
-const { reset } = require("nodemon");
+
 router.post(
   "/register",
   [
@@ -22,15 +22,14 @@ router.post(
         return res.status(301).send(result);
       } else {
         const { username, password, email, phone, emergency } = req.body;
-        const phoneExists = await userModel.findOne({ phone: phone });
         const emailExists = await userModel.findOne({ email: email });
-        if (!(phoneExists === null && emailExists === null)) {
+        if (!(emailExists === null)) {
           return res
             .status(400)
             .send("User with Phone or email already exists");
         }
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(password, salt);
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(password, salt);
         const user = new userModel({
           username: username,
           password: hash,
@@ -98,5 +97,12 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 });
-
+router.get("/", auth, async (req, res) => {
+  try {
+    const userData = await userModel.find();
+    return res.status(200).json(userData);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 module.exports = router;

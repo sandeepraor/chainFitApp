@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { StyleSheet, Button } from "react-native";
+import { AuthProvider, useAuth } from "./app/context/authContext";
+import Home from "./app/screens/Home";
+import Login from "./app/screens/Login";
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthProvider>
+      <Layout></Layout>
+    </AuthProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export const Layout = ({ children }: any) => {
+  const { authState, onLogout } = useAuth();
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Group
+          screenOptions={{ headerStyle: { backgroundColor: "papayawhip" } }}
+        >
+          {authState?.token ? (
+            <Stack.Screen component={Home} name="Home"></Stack.Screen>
+          ) : (
+            <Stack.Screen
+              options={{
+                title: "This is working",
+              }}
+              component={Login}
+              name="Login"
+            ></Stack.Screen>
+          )}
+        </Stack.Group>
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
