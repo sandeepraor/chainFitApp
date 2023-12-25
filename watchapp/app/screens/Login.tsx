@@ -1,28 +1,28 @@
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, TextInput, StyleSheet, Button } from "react-native";
 
 const Login = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.login_header}>
-        <Text>Login Page </Text>
-      </View>
       <View style={styles.login_input}>
-        <TextInput placeholder="Enter the user email"></TextInput>
         <TextInput
+          style={styles.field}
+          placeholder="Enter the user email"
+        ></TextInput>
+        <TextInput
+          style={styles.field}
           secureTextEntry={true}
           placeholder="Enter the password"
         ></TextInput>
+      </View>
+      <View style={styles.button_container}>
+        <Button title="Login"></Button>
       </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
-  login_header: {
-    flex: 1,
-    fontSize: 25,
-    fontWeight: "900",
-    justifyContent: "center",
-    alignItems: "center",
+  button_container: {
+    flex: 2,
   },
   login_input: {
     flex: 4,
@@ -30,10 +30,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  field: {
+    borderColor: "#934beb",
+    backgroundColor: "#f7f7f7",
+    marginBottom: 20,
+    borderRadius: 5,
+    fontFamily: "Roboto",
+    borderBottomWidth: 2,
+    padding: 10,
+    width: 300,
+    fontSize: 20,
+  },
   container: {
     flex: 1,
     height: "auto",
-    backgroundColor: "#ff0",
   },
 });
 

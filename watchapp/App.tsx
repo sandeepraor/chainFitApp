@@ -20,14 +20,16 @@ export const Layout = ({ children }: any) => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Group
-          screenOptions={{ headerStyle: { backgroundColor: "papayawhip" } }}
+          screenOptions={{
+            headerStyle: { backgroundColor: "#934beb" },
+          }}
         >
           {authState?.token ? (
             <Stack.Screen component={Home} name="Home"></Stack.Screen>
           ) : (
             <Stack.Screen
               options={{
-                title: "This is working",
+                title: "Login",
               }}
               component={Login}
               name="Login"
