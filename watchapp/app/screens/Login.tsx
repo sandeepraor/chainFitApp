@@ -4,15 +4,21 @@ const Login = () => {
   return (
     <View style={styles.container}>
       <View style={styles.login_input}>
-        <TextInput
-          style={styles.field}
-          placeholder="Enter the user email"
-        ></TextInput>
-        <TextInput
-          style={styles.field}
-          secureTextEntry={true}
-          placeholder="Enter the password"
-        ></TextInput>
+        <View>
+          <Text>Email</Text>
+          <TextInput
+            style={styles.field}
+            placeholder="Enter the user email"
+          ></TextInput>
+        </View>
+        <View>
+          <Text style={{ marginBottom: 5 }}>password</Text>
+          <TextInput
+            style={styles.field}
+            secureTextEntry={true}
+            placeholder="Enter the password"
+          ></TextInput>
+        </View>
       </View>
       <View style={styles.button_container}>
         <Button title="Login"></Button>
